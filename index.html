@@ -1,0 +1,580 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=640,user-scalable=no,target-densitydpi=device-dpi" /> 
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta http-equiv="Cache-Control" content="no-cache,no-store" />
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title></title>
+<link id="css_pub" rel="stylesheet" href="css/public.css?v=1611728488">
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/Function.js?v=1611728488"></script>
+<script src="js/windowFix.js?v=1611728488"></script>
+<script>
+var _str_root='/';
+</script>
+</head>
+<body>
+<div id="div_content">
+<div id="div_load" style="position:fixed;top:0;left:0;z-index:20001;display:none;background:rgba(0,0,0,0.3);" class="div_bg_a" align="center">
+	<div style="height:40vh"></div>
+	<img src="css/img/loading.gif" style="width:15%;" />
+</div><script>var is_show_qrc=false;</script><script>
+//var is_ban_tm=1
+var arr_conf=GetConfig_ajax('wx_shake_RP/20210112_TZB');
+$('title').html(arr_conf.title);
+</script>
+<style>
+.hand{height:27vh;margin:auto;background:url(css/img/hand.png) no-repeat center;background-size:contain;}
+.hand-animate {-webkit-animation:hand_move infinite 2s;}@-webkit-keyframes hand_move {0%{-webkit-transform: rotate(0);-moz-transform: rotate(0);-ms-transform: rotate(0);-o-transform: rotate(0);transform: rotate(0);}50%{-webkit-transform: rotate(15deg);-moz-transform: rotate(15deg);-ms-transform: rotate(15deg);-o-transform: rotate(15deg);transform: rotate(15deg);}100%{-webkit-transform: rotate(0);-moz-transform: rotate(0);-ms-transform: rotate(0);-o-transform: rotate(0);transform: rotate(0);}}
+audio{display:none}
+#div_cc *{vertical-align:middle;}
+</style>
+<div id="div_shk_bg" class="div_bg" style="color:#fff;text-align:center;background:#000;">
+	<div id="div_shk_main" class="div_bg_a" style="display:none;background:#EB5614;">
+		<div id="div_shk_top"></div>
+		<div id="hand" class="hand"></div>
+	</div>
+	<div class="div_pop" id="div_qrc" style="text-align:center;">
+		<div style="height:10%"></div>
+		<h3 style="color:#fff;">扫描二维码关注账号，抢红包</h3>
+		<img src="css/img/qrc/qrcode_20210112_TZB.jpg" style="height:40vh;" />
+	</div>
+</div>
+<div class="div_pop" id="div_cc" style="text-align:center;">
+	<div style="height:30%"></div>
+	<input type="text" id="inp_cc" placeholder="请输入验证码" maxlength="4" style="font-size:30px;height:50px;" />
+	<img id="img_cc" style="height:50px;" onclick="GetCcode()" />
+	<div style="height:5%"></div>
+	<div class="div_btn_wx" id="btn_cc">提交</div>
+</div>
+<audio id="aud_1" src="css/sound/wx_shake.mp3" preload="auto"></audio>
+<script src="js/Mobile_shake.js"></script>
+<script>
+var myShakeEvent = new Shake({threshold: 15});
+var i_shk_times=0;
+var is_start=0;
+var is_shaking=false;
+var str_d='';
+
+function Init()
+{
+	if(is_show_qrc)$('#div_qrc').show()
+	else is_start=1
+	if(is_start)
+	{
+		myShakeEvent.start();
+		window.addEventListener('shake',SetShake,false);
+		$('#hand').addClass('hand-animate');
+		$('#div_shk_main').fadeIn()
+	}
+}
+function GetCcode()
+{
+	$.ajax
+	({
+		async: true,
+		type: "POST",
+		url: 'include/ajax_checkcode.php',
+		dataType: 'text',
+		success: function(data)
+		{
+			str_d=data;
+			$('#img_cc').attr('src','include/ajax_cc_img.php?s='+str_d);
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown){cb(null);console.log(XMLHttpRequest)}
+	});
+}
+function SetShake()
+{
+	if(is_shaking)return false;
+	is_shaking=true
+	aud_1.play();
+	$('#hand').removeClass('hand-animate');
+	setTimeout(function(){is_shaking=false;$('#hand').addClass('hand-animate');},2000);
+	}
+function GoSRP()
+{
+	is_shaking=true;
+	$('#div_load').show();
+	window.location.href='Send_RB_prc.php?m=20210112_TZB';
+}
+</script>
+<style>
+body{color:#292827;background:#0E3A5F;}
+#div_shk_top{height:35%}
+.div_bg_a{display:none;text-align:center;overflow:hidden;}
+.div_bg .div_sels{margin:auto;margin-top:5%;width:80%;background:#ffdbab;color:#ec6335;padding:3% 5%;text-align:left;border-radius:5px;font-size:4vw;font-weight:bold;}
+.seled{border:3px solid #C6C}
+#div_61 img{width:22%;}
+.img1{position:absolute;top:20%;width:80%;left:10%;}
+ .CssAni1{-webkit-animation:lineVertical1 1s linear 0.5s both ;-moz-animation:lineVertical1 1s linear 0.5s both ;-o-animation:lineVertical1 1s linear 0.5s both ;animation:lineVertical1 1s linear 0.5s both ;}  @-webkit-keyframes lineVertical1{0%{-webkit-transform:translateY(1500px);opacity:0;}100%{-webkit-transform:translateY(0);opacity:1;}} @keyframes lineVertical1{0%{transform:translateY(1500px);opacity:0;}100%{transform:translateY(0);opacity:1;}} @-moz-keyframes lineVertical1{0%{-moz-transform:translateY(1500px);opacity:0;}100%{-moz-transform:translateY(0);opacity:1;}} @-o-keyframes lineVertical1{0%{-o-transform:translateY(1500px);opacity:0;}100%{-o-transform:translateY(0);opacity:1;}} 
+ .CssAni2{-webkit-animation:toSmall2 1s linear 1.5s both ;-moz-animation:toSmall2 1s linear 1.5s both ;-o-animation:toSmall2 1s linear 1.5s both ;animation:toSmall2 1s linear 1.5s both ;}  @-webkit-keyframes toSmall2{0%{opacity:0;-webkit-transform:scale(0);}60%{opacity:1;-webkit-transform:scale(0);}100%{-webkit-transform:scale(1);}} @-moz-keyframes toSmall2{0%{opacity:0;-moz-transform:scale(0)}60%{opacity:1;-moz-transform:scale(0);}100%{-moz-transform:scale(1);}} @-o-keyframes toSmall2{0%{opacity:0;-o-transform:scale(0);}60%{opacity:1;-o-transform:scale(0);}100%{-o-transform:scale(1);}} @keyframes toSmall2{0%{opacity:0;transform:scale(0);}60%{opacity:1;transform:scale(0);}100%{transform:scale(1);}} 
+ .CssAni3{-webkit-animation:lineVertical3 1s linear 1s both ;-moz-animation:lineVertical3 1s linear 1s both ;-o-animation:lineVertical3 1s linear 1s both ;animation:lineVertical3 1s linear 1s both ;}  @-webkit-keyframes lineVertical3{0%{-webkit-transform:translateY(-1000px);opacity:0;}100%{-webkit-transform:translateY(0);opacity:1;}} @keyframes lineVertical3{0%{transform:translateY(-1000px);opacity:0;}100%{transform:translateY(0);opacity:1;}} @-moz-keyframes lineVertical3{0%{-moz-transform:translateY(-1000px);opacity:0;}100%{-moz-transform:translateY(0);opacity:1;}} @-o-keyframes lineVertical3{0%{-o-transform:translateY(-1000px);opacity:0;}100%{-o-transform:translateY(0);opacity:1;}} 
+ .CssAni4{-webkit-animation:RulelessShake4 0.2s linear 0s both ;-moz-animation:RulelessShake4 0.2s linear 0s both ;-o-animation:RulelessShake4 0.2s linear 0s both ;animation:RulelessShake4 0.2s linear 0s both ;}  @-webkit-keyframes RulelessShake4{0%,20%,40%,60%,80%,100%{-webkit-transform:translateY(0) translateX(0);}10%,90%{-webkit-transform:translateY(-5px);}30%{-webkit-transform:translateX(-5px);}50%{-webkit-transform:translateY(5px);}70%{-webkit-transform:translateX(5px);}} @-moz-keyframes RulelessShake4{0%,20%,40%,60%,80%,100%{-moz-transform:translateY(0);}10%,90%{-moz-transform:translateY(-5px);}30%{-moz-transform:translateX(-5px);}50%{-moz-transform:translateY(5px);}70%{-moz-transform:translateX(5px);}} @-o-keyframes RulelessShake4{0%,20%,40%,60%,80%,100%{-o-transform:translateY(0);}10%,90%{-o-transform:translateY(-5px);}30%{-o-transform:translateX(-5px);}50%{-o-transform:translateY(5px);}70%{-o-transform:translateX(5px);}} 
+</style>
+<link rel="stylesheet" href="css/pub_ani.css">
+<script>
+//console.log(arr_conf)
+$('#div_load').show();
+</script>
+<div id="div_1" class="div_bg_a" style="background:url(20210112_TZB/img/1.jpg) no-repeat center;background-size:100% 100%;" ontouchend="Show2()">
+	<img src="20210112_TZB/img/1_1.png" class="bounceInLeft img1 ani-delay1000" />
+	<img src="20210112_TZB/img/1_1.png" class="bounceInRight img1 ani-delay1000" />
+    <div style="height:43%;"></div>
+    <img src="20210112_TZB/img/1_2.png" class="CssAni2" />
+	<div style="position:absolute;width:100%;bottom:5%;left:0;font-size:3vh;font-weight:bold;">广西统一战线   宣</div>
+	<div class="div_arrow_u"></div>
+</div>
+<div id="div_2" class="div_bg_a" style="background:url(20210112_TZB/img/2.jpg) no-repeat center;background-size:100% 100%;" ontouchend="Show3()">
+	<div style="height:25%;"></div>
+	<div id="div_2t" style="margin:auto;width:70vw;padding-left:5vw;text-indent:8vw;text-align:left;color:#292827;font-size:4vw;font-weight:bold;line-height:4.5vh;"></div>
+    <div class="div_arrow_u"></div>
+</div>
+<div id="div_3" class="div_bg_a" style="background:url(20210112_TZB/img/3.jpg) no-repeat center;background-size:100% 100%;">
+	<div style="height:20%;"></div>
+    <img src="20210112_TZB/img/3_1.png" class="CssAni3" />
+    <div style="height:3%;"></div>
+	<div class="CssAni1" style="font-size:4vw;margin:auto;width:90%;line-height:1.5;font-weight:bold;">
+		<div style="font-size:6vw;">看看你对《条例》了解多少<br>答满<span style="color:red">90分</span>即可领取<span style="color:red">现金红包</span></div>
+		<strong style="font-size:5vw;">低于90分可重新答题<br>每人每天可领取一次红包</strong>
+		<div style="height:2vh;"></div>
+		<div style="text-align:center"><strong>【活动时间】</strong><br>2021年1月25日至2月3日（7:00-23:00）</div>
+	</div>
+	<div style="height:5%;"></div>
+    <img src="20210112_TZB/img/3_3.png" onclick="Show5()" style="display:none;" class="CssAni4" />
+</div>
+<div id="div_5" class="div_bg_a" style="background:url(20210112_TZB/img/4.jpg) no-repeat center;background-size:100% 100%;">
+	<div class="div_bg">
+		<div style="height:15%"></div>
+		<div id="div_51" style="color:#292827;font-size:4.5vw;font-weight:bold;width:90%;margin:auto;"></div>
+		<div style="height:1%"></div>
+		<div id="div_2sels" style=""></div>
+		<div style="height:3%"></div>
+		<img id="btn_next" src="20210112_TZB/img/4_1.png" onclick="NextQ();" style="" />
+		<div style="position:absolute;bottom:2%;left:15%;width:70%;">
+			<img src="css/img/sz2.png" style="height:50px;vertical-align:middle;float:left;margin-right:2%;" />
+			<div style="float:left;background:#fff;border:1px solid #101C35;border-radius:10px;height:50px;width:85%;">
+				<div id="proc1" style="background:#ffdbab;width:100%;height:100%; border-radius:10px 0 0 10px;"></div>
+			</div>
+		</div>
+	</div>
+    <img id="img_w" style="position:absolute;top:70%;width:40%;left:30%;display:none;" src="css/img/close4.png" />
+    <img id="img_r" style="position:absolute;top:70%;width:40%;left:30%;display:none;" src="css/img/right4.png" />
+</div>
+<div id="div_6" class="div_bg_a" style="background:url(20210112_TZB/img/4.jpg) no-repeat center;background-size:100% 100%;">
+	<img id="img_61" class="img_bg" />
+    <div id="div_t1" style="position:absolute;left:30%;top:27%;width:70%;font-size:6vw;text-align:left;font-weight:bold;color:#036566;text-shadow:2px 2px 1px #fff;"></div>
+	<div id="div_61" style="position:absolute;bottom:40%;left:0;width:100%;">
+        <img id="btn_1" src="20210112_TZB/img/5-1.png" style="width:30%;display:none;" onclick="GoSRP();"/>
+		<img id="btn_2" src="20210112_TZB/img/6-1.png" style="width:30%;display:none;" onclick="window.location.reload();"/>
+	</div>
+</div>
+<div class="div_share" onclick="$(this).fadeOut()"></div>
+<div id="div_ad" class="div_pop" style="background:url(20210112_TZB/img/../ad1.jpg) no-repeat center;background-size:100% 100%;">
+	<div class="div_close top_right" onclick="$('#div_ad').fadeOut();"></div>
+</div>
+<script>
+var arr_qa=[['①②','①③','②③','①②③',3,'以下说法正确的是：<br>①统一战线工作任务重的党中央以及省、市两级党委派出机关设置统一战线工作机构？<br>②乡（镇、街道）党组织应当有人员负责统一战线工作<br>③统一战线工作任务重的高等学校、科研院所党委设置统一战线工作机构']
+,['无党派人士参照民主党派履行职能','无党派人士不属于政治协商的重要组成部分','政党协商是中国共产党同民主党派的政治协商','中国共产党和各民主党派实行互相监督',1,'以下说法错误的是：']
+,['本领建设','队伍建设','履职能力建设','素质建设',2,'各级党委应当支持民主党派加强思想政治建设、组织建设、________、作风建设、制度建设，支持无党派人士加强自身建设。']
+,['热情服务','效率至上','热情周到','真诚服务',0,'坚持广泛团结、________、积极引导、发挥作用的方针，做好出国和归国留学人员统一战线工作。']
+,['宗教观','文化观','国家观','政府观',1,'在民族工作方面，全面深入持久开展马克思主义祖国观、民族观、________、历史观宣传教育。']
+,['全面从严治党','全面管理','全方位支持','全力协助',0,'工商联党组对所属商会党建工作履行________主体责任。']
+,['互利共赢','团结引导','协作发展','和衷共济',1,'对于新的社会阶层人士统一战线工作，要坚持信任尊重、________、组织起来、发挥作用的思路。']
+,['“一国两制”方针','一个中国原则','中华民族文化','中国特色社会主义',3,'海外统一战线工作的主要任务之一是：增进华侨和出国留学人员等对祖国的热爱和对中国共产党、________的理解认同。']
+,['①②③④','①②③⑤','①②④⑤','①②③④⑤',3,'统战部门自身建设包括哪几个方面？<br>①加强党的政治建设<br>②加强党的思想建设<br>③加强党的作风建设<br>④加强党的组织建设<br>⑤加强党的纪律建设']
+,['50%','60%','70%','80%',2,'坚持参事室统战性、咨询性和文史研究馆统战性、荣誉性的性质，党外参事、党外馆员不少于________。']
+,['中华传统文化','民族团结进步','思想政治','文化素养',1,'在民族工作方面，坚持和完善民族区域自治制度，深化________教育，促进各民族文化交流交融。']
+,['同级党委书记','上级党委书记','同级党委副书记','上级党委副书记',0,'地方党委成立统一战线工作领导小组，组长一般由________担任。']
+,['省会城市','设区市','县级市','乡镇',0,'各省（自治区、直辖市）、副省级城市和________可以成立党外知识分子联谊会。']
+,['民族区域自治','民族平等','脱贫攻坚','改善民生',3,'围绕促进民族团结、________，推动民族地区经济社会发展，不断满足各族群众的美好生活需要。']
+,['党校','干部学院','社会主义学院','普通高等院校',2,'在党外代表人士队伍建设上，发挥________作为统一战线人才教育培养主阵地作用。']
+,['对','错',0,'统一战线是全面建设社会主义现代化国家、实现中华民族伟大复兴中国梦的重要法宝。']
+,['对','错',0,'支持民主党派和无党派人士参政的主要内容是：参加国家政权，参与重要方针政策、重要领导人选的协商，参与国家事务的管理，参与国家方针政策、法律法规的制定和执行。']
+,['对','错',0,'第二章组织领导和职责包括构建党委统一领导、统战部门牵头协调、有关方面各负其责的大统战格局。']
+,['对','错',1,'工商联党组书记由同级党委统战部正部长担任。']
+,['对','错',0,'民主党派是接受中国共产党领导、同中国共产党通力合作的亲密友党，是中国共产党的好参谋、好帮手、好同事，是中国特色社会主义参政党。']
+,['对','错',0,'做好民族工作要围绕促进民族团结、改善民生，推动民族地区经济社会发展，不断满足各族群众的美好生活需要。']
+,['对','错',0,'要坚持和发展中国特色社会主义宗教理论，坚持我国宗教中国化方向。']
+,['对','错',1,'共产党员应当团结信教群众，并且可以信仰宗教。']
+,['对','错',0,'要引导非公有制经济人士爱国、敬业、创新、守法、诚信、贡献，做合格的中国特色社会主义事业建设者。']
+,['对','错',1,'新的社会阶层人士不包括自由职业人员。']
+,['对','错',0,'培育和发展中国特色商会组织，推动统一战线工作向商会组织有效覆盖。']
+,['对','错',0,'保护归侨、侨眷合法权利和利益，适当照顾归侨、侨眷特点，积极发挥他们与海外联系广泛的优势作用。']
+,['对','错',0,'党外代表人士是指与中国共产党团结合作、作出较大贡献、有一定社会影响的人士。']
+,['对','错',0,'对统一战线工作先进集体和先进个人，按照有关规定给予表彰奖励。']
+,['对','错',0,'支持民主党派和无党派人士，指导相关人民团体和社会团体，在港澳台统一战线工作中发挥作用。']];
+
+let arr_qaed=[];
+let str_2t='近日，中共中央印发了修订#后的《中国共产党统一战线工作条例》#（以下简称《条例》），这次修订的#《条例》，是统一战线领域的基础主干党内法规，是新时代统一战线工作的#基本遵循。'
+let i_que=0,i_tt=0,is_seled=false,i_sco=0;
+AddAud(2,'20210112_TZB/1.mp3',true);
+function Init()
+{
+	$('#div_1').fadeIn();
+	//setTimeout(Show2,3000);
+	//Show5();
+	$('#div_load').hide();
+}
+function Show2()
+{
+	$('#div_1').slideUp();
+	$('#div_2').fadeIn(function()
+	{
+		let i_lt=0;
+		let str_t='';
+		let siv_2t=setInterval(function()
+		{
+			if(i_lt>=str_2t.length)
+			{
+				clearInterval(siv_2t);
+				//setTimeout(Show3,1000);
+				return false;
+			}
+			str_t=str_2t[i_lt];
+			if(str_t=='#')str_t='<br>';
+			$('#div_2t').append(str_t);
+			i_lt++;
+		},50)
+	});
+}
+function Show3()
+{
+	$('#div_2').fadeOut()
+	$('#div_3').fadeIn()
+	$('.CssAni4').delay(2000).fadeIn();
+	//setTimeout(function(){},2000);
+}
+function SetSel(obj)
+{
+	//if(is_seled)return false;
+	//is_seled=true;
+	$('.div_sels').removeClass('bounceInLeft');
+	$('.div_sels').removeClass('bounceInRight');
+	$('#btn_next').show();
+	$('.div_sels').removeClass('seled');
+	obj.addClass('seled');
+}
+var is_end=false;
+var i_time=0,i_o_time=15000;
+var siv_t=null;
+function Show5()
+{
+	$('#div_3').fadeOut();
+	$('#div_5').fadeIn();
+	ShowQA();
+	siv_t=setInterval(function()
+	{
+		if(is_end){clearInterval(siv_t);return false;}
+		if(is_seled){return false;}
+		if(i_time<=0){i_que++;NextQ();i_time=i_o_time;return false;}
+		
+		$('#proc1').width(Math.round(i_time/150)+'%');
+		i_time-=100;
+	},100);
+}
+function NextQ()
+{
+	arr_qaed.push(i_que);
+	if($('.seled').attr('data')=='1')
+	{
+		i_sco+=10;
+		$('#img_r').fadeIn(function(){$('#img_r').fadeOut();ShowQA();});
+	}
+	else $('#img_w').fadeIn(function(){$('#img_w').fadeOut();ShowQA();});
+}
+function RandQA()
+{
+	let i_now=SetRandom(0,arr_qa.length-1);
+	if($.inArray(i_now,arr_qaed)!=-1){i_now=RandQA();}
+	return i_now;
+}
+function ShowQA()
+{
+	i_tt++;console.log(i_tt)
+	if(i_tt>10){Show6();return false;}
+	i_que=RandQA();//console.log(arr_qaed);
+	i_time=i_o_time;
+	is_seled=false;
+	$('#div_51').hide();
+	var str_2sels='',str_ani=''
+	for(i=1;i<arr_qa[i_que].length-1;i++)
+	{
+		if(i%2==0)str_ani='bounceInRight';else str_ani='bounceInLeft';
+		str_2sels+='<div onclick="SetSel($(this))" class="div_sels '+str_ani+' ani-delay'+i+'00"';
+		if(arr_qa[i_que][arr_qa[i_que].length-2]==(i-1))str_2sels+=' data="1">';else str_2sels+=' data="0">';
+		str_2sels+=String.fromCharCode(64+i)+'、'+arr_qa[i_que][i-1]+'</div>';
+	}
+	$('#div_2sels').html(str_2sels)
+	$('#div_51').html('第'+i_tt+'题 共10题<br><br><div style="text-align:left;font-size:4vw;">'+arr_qa[i_que][arr_qa[i_que].length-1]+'</span>');
+	$('#div_2sels').hide();
+	$('#btn_next').hide();
+	$('#div_5').fadeIn(function(){$('#div_51').fadeIn();$('#div_2sels').fadeIn()})
+}
+function Show6()
+{console.log(i_tt)
+	clearInterval(siv_t);
+	$('#div_load').show();
+	var i_bg=5;
+	var i_tl=0;
+
+//i_sco=90;
+
+	let str_sco=' <span style="color:red;font-size:15vw;">'+i_sco+'</span>分'
+	if(i_sco>=90)
+	{
+		i_bg=5;
+		$('#div_t1').html('恭喜你，获得'+str_sco+'<br>可以领取<span style="color:red;">现金红包</span><br><p style="font-size:4vw;text-shadow:none;color:#292827;">支持统战，关乎你我</p>');
+		$('#btn_1').show();
+	}
+	else
+	{
+		i_bg=6;
+		$('#div_t1').html('你得到'+str_sco+'<br>请再接再厉<br><p style="font-size:4vw;text-shadow:none;color:#292827;">统战大计，道阻且长</p>');
+		$('#btn_2').show();
+	}
+	$('#div_5').fadeOut()
+	$('#div_6').fadeIn()
+	$('#div_load').hide();
+}
+</script>
+<script>var arr_files=new Array();arr_files.push("20210112_TZB/img/1.jpg");arr_files.push("20210112_TZB/img/1_1.png");arr_files.push("20210112_TZB/img/1_2.png");arr_files.push("20210112_TZB/img/2.jpg");arr_files.push("20210112_TZB/img/3.jpg");arr_files.push("20210112_TZB/img/3_1.png");arr_files.push("20210112_TZB/img/3_2.png");arr_files.push("20210112_TZB/img/3_3.png");arr_files.push("20210112_TZB/img/4.jpg");arr_files.push("20210112_TZB/img/4_1.png");arr_files.push("20210112_TZB/img/5-1.png");arr_files.push("20210112_TZB/img/6-1.png");var pl_img=preloadimages(arr_files);pl_img.done(function(images){setTimeout(function(){Init()},1000)});</script></div>
+</body>
+</html>
+	<script>
+// if(typeof(is_ban_hm)=="undefined")
+// {
+// 	var _hmt = _hmt || [];
+// 	(function() {
+// 	  var hm = document.createElement("script");
+// 	  hm.src = "https://hm.baidu.com/hm.js?ffd795101d354bdf5bbd8e0d8f86a029";//a6acb69ba0200baf3c511f0f0b5eaa34//ffd795101d354bdf5bbd8e0d8f86a029
+// 	  var s = document.getElementsByTagName("script")[0]; 
+// 	  s.parentNode.insertBefore(hm, s);
+// 	})();
+// }
+if(typeof(is_ban_tm)!="undefined")document.body.addEventListener('touchmove',function(event){event.preventDefault();},false);
+if(typeof(is_ban_img)!="undefined")$('img').click(function(e){e.preventDefault();});
+if(GetDeviceType()=='pc')
+{
+	$('#div_content').addClass('div_content_pc');//浏览设备判断
+	$('.div_content_pc').css('min-height',i_w_h);
+	$('.div_content_pc').width(i_w_h*640/960)
+}
+else
+{
+	$('#div_content').height(i_w_h);
+	$('#div_content').addClass('div_content_phone');
+}
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+<script>
+var arr_jdk=GetJSJDK_ajax(arr_conf.appid,arr_conf.secret);
+var json_gl_res=new Object();
+var is_debug=false;
+if(arr_conf.debug)is_debug=true;
+wx.config({
+	debug: is_debug,
+	appId: arr_jdk.appId,
+	timestamp: arr_jdk.timestamp,
+	nonceStr: arr_jdk.nonceStr,
+	signature: arr_jdk.signature,
+	jsApiList: [
+	    "chooseImage",
+	    "scanQRCode",
+	    "openLocation",
+	    "getLocation",
+	    "openProductSpecificView",
+	    'translateVoice',//Voice start
+        'startRecord',
+        'stopRecord',
+        'onVoiceRecordEnd',
+        'playVoice',
+        'onVoicePlayEnd',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',//Voice end
+	    "onMenuShareTimeline",
+	    "onMenuShareQQ",
+	    "onMenuShareWeibo",
+	    "onMenuShareAppMessage",
+	    "showOptionMenu",
+		'chooseWXPay',
+		'checkJsApi',
+        'onMenuShareQZone',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'addCard',
+        'chooseCard',
+        'openCard'
+	]
+});
+wx.ready(function()
+{
+	if(typeof(is_ban_wxshare)!="undefined")wx.hideOptionMenu();
+	var shareData_stl={
+		title: arr_conf.share_title
+		,desc: arr_conf.share_desc
+		,link: arr_conf.share_link
+		,imgUrl: arr_conf.share_ico
+		,type: ''
+		,dataUrl: ''
+		,success: function() {eval(arr_conf.addscript_stl)}
+		,cancel: function() {}
+	};
+	var shareData_sam={
+		title: arr_conf.share_title
+		,desc: arr_conf.share_desc
+		,link: arr_conf.share_link
+		,imgUrl: arr_conf.share_ico
+		,type: ''
+		,dataUrl: ''
+		,success: function() {eval(arr_conf.addscript)}
+		,cancel: function() {}
+	};
+	wx.onMenuShareAppMessage(shareData_sam);
+	wx.onMenuShareTimeline(shareData_stl);
+	//WXPay();
+	if(arr_conf.is_getlocation)
+	{
+		WXGetLocation()
+		/*wx.getLocation
+		({
+			type: 'gcj02', //wgs84
+			success:function(res){json_gl_res=res;},//JSON.stringify(res)
+			cancel:function(res){alert('用户拒绝授权获取地理位置');}
+		});*/
+	}
+	wx.onVoiceRecordEnd
+	({
+		complete:function(res)
+		{
+			voice.localId = res.localId;
+			alert('录音时间已超过一分钟');
+		}
+	});
+	wx.onVoicePlayEnd({complete:function(res){}})//alert('录音（' + res.localId + '）播放结束');
+	if(typeof(str_last_wxjs)!='undefined')eval(str_last_wxjs);
+});
+function WXGetLocation(callback)
+{
+	wx.getLocation
+	({
+		type: 'gcj02', //wgs84
+		success:function(res){json_gl_res=res;callback(res);},//JSON.stringify(res)
+		cancel:function(res){alert('用户拒绝授权获取地理位置');}
+	});
+}
+function WXopenLocation(str_la,str_lo,str_n,str_add,i_scale)
+{//alert(str_la)
+	wx.openLocation
+	({
+		latitude:str_la//23.099994
+		,longitude:str_lo//113.324520
+		,name:str_n//TIT 创意园
+		,address:str_add//'广州市海珠区新港中路 397 号'
+		,scale:i_scale//14
+		,infoUrl:'http://weixin.qq.com'
+		,success:function(res){}
+		//,fail:function(res){alert(res.errMsg)}
+	});
+}
+function WXPay(arr_wxpay,callback)
+{
+	wx.chooseWXPay
+	({
+		timestamp: arr_wxpay.timeStamp,
+		nonceStr: arr_wxpay.nonceStr,
+		package: arr_wxpay.package,
+		signType: 'MD5',
+		paySign: arr_wxpay.paySign,
+		success: function (res){callback(res)}
+    });
+}
+var voice={localId:'',serverId:'',str_trans:''};
+function WXstartRecord(){wx.startRecord({cancel:function (){alert('用户拒绝授权录音')}})}
+
+function WXstopRecord(callback)
+{
+    wx.stopRecord
+	({
+		success: function(res){voice.localId=res.localId;callback(res)},
+		fail: function(res){alert(JSON.stringify(res));}
+    });
+}
+function WXplayVoice()
+{
+    if(voice.localId=='')
+	{
+		alert('请先录制一段声音');
+		return;
+	}
+	wx.playVoice({localId: voice.localId});
+}
+function WXpauseVoice(){wx.pauseVoice({localId:voice.localId})}
+function WXstopVoice(){wx.stopVoice({localId: voice.localId})}
+function WXuploadVoice(callback)
+{
+	if (voice.localId=='')
+	{
+		alert('请先录制一段声音');
+		return;
+	}
+    wx.uploadVoice
+	({
+		localId: voice.localId,
+		success: function (res)
+		{
+			voice.serverId = res.serverId;
+			callback(res);
+		}
+	})
+}
+function WXdownloadVoice(callback)
+{
+	if (voice.serverId=='')
+	{
+		alert('请先上传声音');
+		return;
+	}
+    wx.downloadVoice
+	({
+		serverId: voice.serverId,
+		success: function (res)
+		{
+			voice.localId=res.localId;
+			callback(res);
+		}
+	})
+}
+function WXtranslateVoice(callback)
+{
+	if (voice.localId=='')
+	{
+		alert('请先录制一段声音');
+		return null;
+    }
+    wx.translateVoice
+	({
+		localId: voice.localId,
+		isShowProgressTips: 1,
+		complete: function (res)
+		{
+			if (res.hasOwnProperty('translateResult')){voice.str_trans=res.translateResult;callback(res)}
+			else{return null}
+		}
+	})
+}
+</script>
